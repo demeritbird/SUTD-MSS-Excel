@@ -1,0 +1,79 @@
+﻿Option Compare Text
+
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+On Error GoTo BigOop
+
+
+If Not Intersect(Target, Range("C7")) Is Nothing Then
+
+
+    If InStr(Range("C7").Formula, "x") > 0 Then
+    
+    
+    
+    'blue traps
+        
+        Range("I6").Value = "=" & Range("C7").Value
+        
+        Range("I6").Replace What:="exp", Replacement:="z"
+        Range("I6").Replace What:="x", Replacement:="F6"
+        Range("I6").Replace What:="z", Replacement:="exp"
+
+        
+        Range("I6").AutoFill Range("I6:I304")
+    
+        Dim x As Range
+        For Each x In Range("G7:G304")
+        
+            If x.Value = 0 Then
+                x.Offset(0, 2).Formula = ""
+            
+            End If
+            
+        Next x
+            
+        
+    
+    'orange actual graph
+        Range("L4").Formula = "=" & Range("C7").Formula
+        
+        Range("L4").Replace What:="exp", Replacement:="z"
+        Range("L4").Replace What:="x", Replacement:="K4"
+        Range("L4").Replace What:="z", Replacement:="exp"
+        
+        
+        Range("L4").AutoFill Range("L4:L203")
+        
+        
+        
+    'calculation buffer
+        Range("Q4").Formula = "=" & Range("C7").Formula
+        
+        Range("Q4").Replace What:="exp", Replacement:="z"
+        Range("Q4").Replace What:="x", Replacement:="O4"
+        Range("Q4").Replace What:="z", Replacement:="exp"
+        
+        
+        Range("Q4").AutoFill Range("Q4:Q104")
+        
+    Else:
+        MsgBox ("Please fill in desired x-Value.")
+        
+        
+    End If
+
+
+    End If
+    
+oop:
+Exit Sub
+    
+
+BigOop:
+    MsgBox ("Error! Check your Excel notations.")
+    
+Exit Sub
+
+
+End Sub

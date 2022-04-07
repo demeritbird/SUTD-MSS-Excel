@@ -1,0 +1,51 @@
+﻿Option Compare Text
+
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+On Error GoTo BigOop
+
+
+If Not Intersect(Target, Range("C7")) Is Nothing Then
+
+
+If InStr(Range("C7").Formula, "x") > 0 Then
+    
+    
+ 
+        
+        Range("F4").Value = "=" & Range("C7").Value
+        
+        Range("F4").Replace What:="exp", Replacement:="z"
+        Range("F4").Replace What:="x", Replacement:="E4"
+        Range("F4").Replace What:="z", Replacement:="exp"
+        
+        Range("F4").AutoFill Range("F4:F203")
+        
+        Range("H4").Value = "=" & Range("C7").Value
+        
+        Range("H4").Replace What:="exp", Replacement:="z"
+        Range("H4").Replace What:="x", Replacement:="G4"
+        Range("H4").Replace What:="z", Replacement:="exp"
+        
+        Range("H4").AutoFill Range("H4:H203")
+        
+    Else:
+        MsgBox ("Please fill in desired x-Value.")
+        
+        
+    End If
+
+
+    End If
+    
+oop:
+Exit Sub
+    
+
+BigOop:
+    MsgBox ("Error! Check your Excel notations.")
+    
+Exit Sub
+
+
+End Sub
